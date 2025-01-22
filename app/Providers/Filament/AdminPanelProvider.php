@@ -39,6 +39,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
+                \App\Filament\Widgets\ExchangeRateChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -50,7 +51,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                \App\Filament\Widgets\ExchangeRateChart::class,
+                
             ])
             ->authMiddleware([
                 Authenticate::class,
