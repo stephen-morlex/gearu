@@ -26,14 +26,10 @@ class ExchangeRateResource extends Resource
             Forms\Components\DatePicker::make('date')
                 ->required()
                 ->unique(ignoreRecord: true),
-            Forms\Components\Select::make('currency')
-                ->options([
-                    'USD' => 'USD',
-                    'EUR' => 'EUR',
-                    'GBP' => 'GBP',
-                    // Add more currencies as needed
-                ])
-                ->required(),
+            Forms\Components\Select::make('currency_id')
+                ->relationship('currency', 'code') // Display currency code
+                ->required()
+                ->label('Currency'),
             Forms\Components\TextInput::make('buying_rate')
                 ->numeric()
                 ->required(),
@@ -49,7 +45,8 @@ class ExchangeRateResource extends Resource
         ->columns([
             Tables\Columns\TextColumn::make('date')
                 ->sortable(),
-            Tables\Columns\TextColumn::make('currency')
+            Tables\Columns\TextColumn::make('currency.code')
+                ->label('Currency')
                 ->sortable(),
             Tables\Columns\TextColumn::make('buying_rate')
                 ->label('Buying Rate (100 Foreign Currency)')
