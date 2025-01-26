@@ -2,11 +2,12 @@
 
 namespace App\Filament\Widgets;
 
-use \App\Models\ExchangeRate;
+use App\Models\ExchangeRate;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 use App\Models\Currency;
+
 class ExchangeRateChart extends ChartWidget
 {
     protected static ?string $heading = 'Exchange Rates Over Time';
@@ -41,24 +42,27 @@ class ExchangeRateChart extends ChartWidget
                 ->perDay()
                 ->sum('selling_rate');
 
-            // Combine buying and selling rates into floating bar data
-            $floatingBarData = $buyingData->map(function (TrendValue $value, $index) use ($sellingData) {
-                return [
-                    $sellingData[$index]->aggregate, // Selling rate
-                    $value->aggregate, // Buying rate
-                ];
-            });
-
-            // Add dataset for the currency
+            // Add dataset for buying rates
             $datasets[] = [
-                'label' => $currency->code . ' Exchange Rate Range',
-                'data' => $floatingBarData,
-                'backgroundColor' => $this->getColorForCurrency($currency->code),
+                'label' => $currency->code . ' Buying Rate',
+                'data' => $buyingData->map(fn(TrendValue $value) => $value->aggregate),
+                'borderColor' => 'green', // Green for buying rate
+                'backgroundColor' => 'rgba(0, 255, 0, 0.1)', // Light green background
+                'fill' => false,
+            ];
+
+            // Add dataset for selling rates
+            $datasets[] = [
+                'label' => $currency->code . ' Selling Rate',
+                'data' => $sellingData->map(fn(TrendValue $value) => $value->aggregate),
+                'borderColor' => 'red', // Red for selling rate
+                'backgroundColor' => 'rgba(255, 0, 0, 0.1)', // Light red background
+                'fill' => false,
             ];
 
             // Set labels (dates) from the first currency's data
             if (empty($labels)) {
-                $labels = $buyingData->map(fn (TrendValue $value) => $value->date);
+                $labels = $buyingData->map(fn(TrendValue $value) => $value->date);
             }
         }
 
@@ -72,38 +76,27 @@ class ExchangeRateChart extends ChartWidget
     {
         return 2; // Full-width layout
     }
+
     protected function getType(): string
     {
-        return 'bar'; // Use floating bar chart
-    }
-    
-    /**
-     * Get a unique color for each currency.
-     */
-    protected function getColorForCurrency(string $currencyCode): string
-    {
-        $colors = [
-            'USD' => 'red', // Teal for USD
-            'EUR' => 'blue', // Red for EUR
-            'GBP' => 'green', // Blue for GBP
-            // Add more colors as needed
-        ];
-
-        return $colors[$currencyCode] ?? 'rgba(201, 203, 207, 0.6)'; // Default gray
+        return 'line'; // Use line chart
     }
 
     /**
-     * Customize the chart options for floating bars.
+     * Customize the chart options for better visualization.
      */
     protected function getOptions(): array
     {
         return [
             'scales' => [
                 'x' => [
-                    'stacked' => true, // Stack bars on the x-axis
+                    'type' => 'time', // Use time scale for the x-axis
+                    'time' => [
+                        'unit' => 'day', // Display by day
+                    ],
                 ],
                 'y' => [
-                    'beginAtZero' => false, // Do not start the y-axis from zero
+                    'beginAtZero' => true, // Do not start the y-axis from zero
                 ],
             ],
             'plugins' => [
@@ -111,15 +104,12 @@ class ExchangeRateChart extends ChartWidget
                     'callbacks' => [
                         'label' => function ($context) {
                             $label = $context->dataset->label ?? '';
-                            $sellingRate = $context->raw[0];
-                            $buyingRate = $context->raw[1];
-                            return "{$label}: {$sellingRate} - {$buyingRate}";
+                            $value = $context->raw;
+                            return "{$label}: {$value}";
                         },
                     ],
-                    'fill' => 'sky',
                 ],
             ],
         ];
     }
-
 }
