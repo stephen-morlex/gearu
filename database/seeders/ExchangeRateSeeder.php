@@ -45,12 +45,8 @@ class ExchangeRateSeeder extends Seeder
      */
     protected function generateRandomRate(string $currencyCode): float
     {
-        // Base rates for demonstration purposes
-        $baseRates = [
-            'USD' => 100, // 1 USD = 100 KSH
-            'EUR' => 120, // 1 EUR = 120 KSH
-            'GBP' => 140, // 1 GBP = 140 KSH
-        ];
+        // Generate a random rate starting from 5000
+        return 5000 + mt_rand(0, 1000);
 
         // Add some random fluctuation to the base rate
         return $baseRates[$currencyCode] + mt_rand(-5, 5);

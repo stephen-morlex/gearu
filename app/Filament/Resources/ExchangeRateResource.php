@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Validation\Rule;
 
 class ExchangeRateResource extends Resource
 {
@@ -23,13 +24,12 @@ class ExchangeRateResource extends Resource
     {
         return $form
         ->schema([
-            Forms\Components\DatePicker::make('date')
-                ->required()
-                ->unique(ignoreRecord: true),
             Forms\Components\Select::make('currency_id')
-                ->relationship('currency', 'code') // Display currency code
-                ->required()
-                ->label('Currency'),
+                ->relationship('currency', 'code')
+                ->required(),
+                Forms\Components\DatePicker::make('date')
+                ->required(),
+
             Forms\Components\TextInput::make('buying_rate')
                 ->numeric()
                 ->required(),
@@ -37,6 +37,10 @@ class ExchangeRateResource extends Resource
                 ->numeric()
                 ->required(),
         ]);
+    }
+    public static function compareCurrencies($currencyId1, $currencyId2, $date)
+    {
+        return ExchangeRate::compareRates($currencyId1, $currencyId2, $date);
     }
 
     public static function table(Table $table): Table
