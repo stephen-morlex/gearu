@@ -17,11 +17,7 @@
 
     <!-- Right Section: Actions and Profile -->
     <div class="flex items-center space-x-4">
-        <flux:navbar class="me-4">
-            <flux:navbar.item icon="magnifying-glass" href="#" label="Search" />
-            <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="/settings" label="Settings" />
-            <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="/help" label="Help" />
-        </flux:navbar>
+
 
         <flux:dropdown position="top" align="start">
             <flux:profile avatar="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiM5Q0EzQUYiLz4KPHBhdGggZD0iTTE2IDhDMTMuNzkgOCAxMiA5Ljc5IDEyIDEyQzEyIDE0LjIxIDEzLjc5IDE2IDE2IDE2QzE4LjIxIDE2IDIwIDE0LjIxIDIwIDEyQzIwIDkuNzkgMTguMjEgOCAxNiA4WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTggMjRDOCAxOS41ODIgMTEuNTgyIDE2IDE2IDE2QzIwLjQxOCAxNiAyNCAxOS41ODIgMjQgMjQiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=" />
@@ -51,8 +47,4 @@
 
     <flux:spacer />
 
-    <flux:navlist variant="outline">
-        <flux:navlist.item icon="cog-6-tooth" href="/settings">Settings</flux:navlist.item>
-        <flux:navlist.item icon="information-circle" href="/help">Help</flux:navlist.item>
-    </flux:navlist>
 </flux:sidebar>
