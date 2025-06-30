@@ -19,6 +19,10 @@ class CurrenciesTable
                     ->searchable(),
                 TextColumn::make('name')
                     ->searchable(),
+                TextColumn::make('emoji')
+                    ->label('Emoji')
+                    ->alignCenter()
+                    ->size('lg'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

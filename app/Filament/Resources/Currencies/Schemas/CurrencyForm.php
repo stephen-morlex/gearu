@@ -15,6 +15,12 @@ class CurrencyForm
                     ->required(),
                 TextInput::make('name')
                     ->required(),
+                TextInput::make('emoji')
+                    ->label('Emoji')
+                    ->placeholder('e.g., 💵')
+                    ->maxLength(8)
+                    ->helperText('Enter a currency emoji (e.g., 💵, 💶)')
+                    ->nullable(),
             ]);
     }
 }

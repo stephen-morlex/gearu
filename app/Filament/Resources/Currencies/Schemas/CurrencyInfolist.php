@@ -13,6 +13,9 @@ class CurrencyInfolist
             ->components([
                 TextEntry::make('code'),
                 TextEntry::make('name'),
+                TextEntry::make('emoji')
+                    ->label('Emoji')
+                    ->size('lg'),
                 TextEntry::make('created_at')
                     ->dateTime(),
                 TextEntry::make('updated_at')
