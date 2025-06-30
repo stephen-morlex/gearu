@@ -40,6 +40,6 @@
 
     <!-- Currency Matrix Table Livewire Component -->
     <div class="container mx-auto px-4 py-4">
-        <livewire:currency-matrix-table />
+        <livewire:currency-matrix-table lazy  />
     </div>
 </x-layouts.app>

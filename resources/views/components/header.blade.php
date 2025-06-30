@@ -9,9 +9,9 @@
     <!-- Center Section: Navigation -->
     <div class="flex-1 flex justify-center">
         <flux:navbar class="-mb-px max-lg:hidden">
-            <flux:navbar.item  href="/" current>Home</flux:navbar.item>
-            <flux:navbar.item  href="/exchange-rates">Exchange Rates</flux:navbar.item>
-            <flux:navbar.item  href="/blogs">Blogs</flux:navbar.item>
+            <flux:navbar.item  wire:navigate  href="/" current>Home</flux:navbar.item>
+            <flux:navbar.item  wire:navigate  href="/exchange-rates">Exchange Rates</flux:navbar.item>
+            <flux:navbar.item  wire:navigate  href="/blogs">Blogs</flux:navbar.item>
         </flux:navbar>
     </div>
 

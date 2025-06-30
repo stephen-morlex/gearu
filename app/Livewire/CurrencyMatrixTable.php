@@ -95,6 +95,15 @@ class CurrencyMatrixTable extends Component
         }
     }
 
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <div>
+            <!-- Loading spinner... -->
+           loading...
+        </div>
+        HTML;
+    }
     public function render()
     {
         return view('livewire.currency-matrix-table', [
